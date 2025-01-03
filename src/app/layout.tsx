@@ -1,24 +1,24 @@
 import "./globals.css";
+import type {Metadata} from "next";
+import Header from "../components/Header";
+export const metadata: Metadata = {
+    title: "Teste Tickets",
+    description: "Aplicação de teste de tickets",
+};
 
 export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
+                                       children,
+                                   }: Readonly<{
+    children: React.ReactNode;
 }>) {
-  return (
-      <html>
-      <head>
-        <title>Teste Tickets</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </head>
-
+    return (
+        <html lang="pt-BR">
         <body>
-            <div className="container mx-auto">
-                {children}
-            </div>
+        <Header />
+        <div className="container mx-auto">
+            {children}
+        </div>
         </body>
-      </html>
-
-
-  );
+        </html>
+    );
 }
