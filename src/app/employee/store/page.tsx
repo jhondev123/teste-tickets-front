@@ -20,7 +20,7 @@ const StoreEmployeePage: React.FC = () => {
         setMessageType(null);
 
         axios.post('employees', data)
-            .then((response) => {
+            .then(() => {
                 setLoading(false);
                 setMessage('Funcionário cadastrado com sucesso!');
                 setMessageType('success');

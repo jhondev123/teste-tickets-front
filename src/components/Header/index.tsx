@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from "next/link";
 
 const Header = () => {
     return (
@@ -8,24 +9,24 @@ const Header = () => {
             <div className="flex justify-between items-center">
                 <h1 className="text-xl font-semibold">Sistema de Gestão Tickets</h1>
                 <div className="space-x-4">
-                    <a
+                    <Link
                         href="/"
                         className="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg"
                     >
                         Home
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                         href="/employee"
                         className="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg"
                     >
                         Funcionários
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                         href="/report"
                         className="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg"
                     >
                         Relatórios
-                    </a>
+                    </Link>
                 </div>
             </div>
         </header>

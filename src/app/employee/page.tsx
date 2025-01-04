@@ -4,7 +4,7 @@ import React, {useEffect, useState} from 'react';
 import axios from '../../utils/axios';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faEdit} from '@fortawesome/free-solid-svg-icons';
-
+import Link from "next/link";
 type Ticket = {
     id: number;
     quantity: number;
@@ -54,12 +54,12 @@ const EmployeePage: React.FC = () => {
         <div className="p-8">
             <h1 className="text-2xl font-bold mb-6">Funcionários</h1>
             <div className="flex justify-end mb-6">
-                <a
+                <Link
                     className="bg-blue-500 text-white rounded-full p-3 shadow-lg hover:bg-blue-600 transition"
                     href="/employee/store"
                 >
                     Adicionar Funcionário
-                </a>
+                </Link>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {employees.map((employee) => (
