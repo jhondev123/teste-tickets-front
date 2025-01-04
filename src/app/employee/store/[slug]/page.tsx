@@ -11,48 +11,44 @@ interface EmployeeData {
     cpf: string;
 }
 
-const EditEmployeePage: React.FC = ({ params }: { params: Promise<{ slug: string }> }) => {
+interface PageProps {
+    params: {
+        slug: string;
+    }
+}
+
+export default function EditEmployeePage({ params }: PageProps) {
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
     const [formErrors, setFormErrors] = useState<{ [key: string]: string[] }>({});
     const [employee, setEmployee] = useState<EmployeeData>({ name: '', cpf: '' });
     const router = useRouter();
-    const [employeeId, setEmployeeId] = useState<string | null>(null);
 
     useEffect(() => {
-        const getParams = async () => {
-            const resolvedParams = await params;
-            setEmployeeId(resolvedParams.slug);
-        };
-
-        getParams();
-    }, [params]);
-
-    useEffect(() => {
-        if (employeeId) {
+        if (params.slug) {
             setLoading(true);
-            axios.get(`employees/${employeeId}`)
+            axios.get(`employees/${params.slug}`)
                 .then((response) => {
-                    setLoading(false);
                     setEmployee(response.data.data);
+                    setLoading(false);
                 })
                 .catch((error) => {
-                    setLoading(false);
                     setMessage({ type: 'error', text: 'Erro ao carregar os dados do funcionário. Tente novamente.' });
+                    setLoading(false);
                     console.error(error);
                 });
         }
-    }, [employeeId]);
+    }, [params.slug]);
 
     const handleSubmit = (data: EmployeeData) => {
         setLoading(true);
         setMessage(null);
         setFormErrors({});
 
-        axios.put(`employees/${employeeId}`, data)
+        axios.put(`employees/${params.slug}`, data)
             .then(() => {
-                setLoading(false);
                 setMessage({ type: 'success', text: 'Funcionário editado com sucesso!' });
+                setLoading(false);
                 setTimeout(() => {
                     router.push('/employee');
                 }, 2000);
@@ -97,6 +93,4 @@ const EditEmployeePage: React.FC = ({ params }: { params: Promise<{ slug: string
             )}
         </div>
     );
-};
-
-export default EditEmployeePage;
+}
