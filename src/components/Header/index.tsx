@@ -9,19 +9,19 @@ const Header = () => {
                 <h1 className="text-xl font-semibold">Sistema de Gestão</h1>
                 <div className="space-x-4">
                     <a
-                        href="/employees"
+                        href="/employee"
                         className="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg"
                     >
                         Funcionários
                     </a>
                     <a
-                        href="/tickets"
+                        href="/ticket"
                         className="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg"
                     >
                         Tickets
                     </a>
                     <a
-                        href="/reports"
+                        href="/report"
                         className="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg"
                     >
                         Relatórios
