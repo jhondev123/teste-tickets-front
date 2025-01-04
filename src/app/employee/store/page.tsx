@@ -6,6 +6,11 @@ import FormEmployee from '../../../components/FormEmployee';
 import axios from '../../../utils/axios';
 import { ClipLoader } from 'react-spinners';
 
+interface SubmitData{
+    name: string;
+    cpf: string;
+}
+
 const StoreEmployeePage: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState<string | null>(null);
@@ -13,7 +18,7 @@ const StoreEmployeePage: React.FC = () => {
     const [formErrors, setFormErrors] = useState<{ [key: string]: string[] }>({});
     const router = useRouter();
 
-    const handleSubmit = (data: any) => {
+    const handleSubmit = (data: SubmitData) => {
         setLoading(true);
         setMessage(null);
         setFormErrors({});
