@@ -12,9 +12,7 @@ interface EmployeeData {
 }
 
 interface PageProps {
-    params: {
-        slug: string;
-    }
+    params: Promise<{ slug: string }>;
 }
 
 export default function EditEmployeePage({ params }: PageProps) {
@@ -22,12 +20,26 @@ export default function EditEmployeePage({ params }: PageProps) {
     const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
     const [formErrors, setFormErrors] = useState<{ [key: string]: string[] }>({});
     const [employee, setEmployee] = useState<EmployeeData>({ name: '', cpf: '' });
+    const [slug, setSlug] = useState<string>('');
     const router = useRouter();
 
     useEffect(() => {
-        if (params.slug) {
+        const fetchParams = async () => {
+            try {
+                const resolvedParams = await params;
+                setSlug(resolvedParams.slug);
+            } catch (error) {
+                console.error('Error resolving params:', error);
+            }
+        };
+
+        fetchParams();
+    }, [params]);
+
+    useEffect(() => {
+        if (slug) {
             setLoading(true);
-            axios.get(`employees/${params.slug}`)
+            axios.get(`employees/${slug}`)
                 .then((response) => {
                     setEmployee(response.data.data);
                     setLoading(false);
@@ -38,14 +50,16 @@ export default function EditEmployeePage({ params }: PageProps) {
                     console.error(error);
                 });
         }
-    }, [params.slug]);
+    }, [slug]);
 
     const handleSubmit = (data: EmployeeData) => {
+        if (!slug) return;
+
         setLoading(true);
         setMessage(null);
         setFormErrors({});
 
-        axios.put(`employees/${params.slug}`, data)
+        axios.put(`employees/${slug}`, data)
             .then(() => {
                 setMessage({ type: 'success', text: 'Funcionário editado com sucesso!' });
                 setLoading(false);
