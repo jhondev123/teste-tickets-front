@@ -22,10 +22,10 @@ const Header = () => {
                         Funcionários
                     </Link>
                     <Link
-                        href="/report"
+                        href="/ticket"
                         className="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg"
                     >
-                        Relatórios
+                        Tickets
                     </Link>
                 </div>
             </div>
