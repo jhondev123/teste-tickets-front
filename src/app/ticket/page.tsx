@@ -23,7 +23,8 @@ const TicketsPage: React.FC = () => {
     const [finalDate, setFinalDate] = React.useState<string>("");
     const [searchTerm, setSearchTerm] = React.useState<string>("");
     const [situation, setSituation] = React.useState<string>("");
-    const searchTimeout = React.useRef<number | null>(null);
+    const searchTimeout = React.useRef<NodeJS.Timeout | null>(null);
+
 
 
 
