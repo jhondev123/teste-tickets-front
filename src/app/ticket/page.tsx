@@ -18,14 +18,14 @@ type Ticket = {
 };
 
 const TicketsPage: React.FC = () => {
+    const [totalTickets, setTotalTickets] = React.useState<number>(0);
+    const [totalQuantity, setTotalQuantity] = React.useState<number>(0);
     const [tickets, setTickets] = React.useState<Ticket[]>([]);
     const [initialDate, setInitialDate] = React.useState<string>("");
     const [finalDate, setFinalDate] = React.useState<string>("");
     const [searchTerm, setSearchTerm] = React.useState<string>("");
     const [situation, setSituation] = React.useState<string>("");
     const searchTimeout = React.useRef<NodeJS.Timeout | null>(null);
-
-
 
 
     const fetchTickets = React.useCallback((params?: {
@@ -48,6 +48,8 @@ const TicketsPage: React.FC = () => {
                     situation: ticket.situation,
                 }));
                 setTickets(tickets);
+                setTotalTickets(response.data.data[0].total);
+                setTotalQuantity(response.data.data[0].total_quantity);
             })
             .catch((error) => {
                 console.error("Erro ao buscar tickets:", error);
@@ -180,48 +182,56 @@ const TicketsPage: React.FC = () => {
                     Adicionar Ticket
                 </Link>
             </div>
+            <div className="flex gap-4 mb-6">
+                <p>Total de Tickets: {totalTickets}</p>
+                <p>Quantidade Total: {totalQuantity}</p>
+
+            </div>
+
             <div className="overflow-x-auto">
-                <table className="min-w-full bg-white shadow-md rounded-lg">
-                    <thead>
-                    <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                        <th className="py-3 px-6 text-left">ID</th>
-                        <th className="py-3 px-6 text-left">Funcionário ID</th>
-                        <th className="py-3 px-6 text-left">Funcionário</th>
-                        <th className="py-3 px-6 text-left">Quantidade</th>
-                        <th className="py-3 px-6 text-left">Situação</th>
-                        <th className="py-3 px-6 text-left">Criado em</th>
-                        <th className="py-3 px-6 text-left">Atualizado em</th>
-                        <th className="py-3 px-6 text-left">Ações</th>
-                    </tr>
-                    </thead>
-                    <tbody className="text-gray-700 text-sm">
-                    {tickets.map((ticket) => (
-                        <tr key={ticket.id} className="border-b border-gray-200 hover:bg-gray-100">
-                            <td className="py-3 px-6">{ticket.id}</td>
-                            <td className="py-3 px-6">{ticket.employee_id}</td>
-                            <td className="py-3 px-6">{ticket.employee}</td>
-                            <td className="py-3 px-6">{ticket.quantity}</td>
-                            <td
-                                className={`py-3 px-6 ${
-                                    ticket.situation === "Ativo" ? "text-green-600" : "text-red-600"
-                                } font-bold`}
-                            >
-                                {ticket.situation}
-                            </td>
-                            <td className="py-3 px-6">{ticket.created_at}</td>
-                            <td className="py-3 px-6">{ticket.updated_at}</td>
-                            <td className="py-3 px-6">
-                                <a
-                                    className="bg-blue-500 text-white rounded-full p-3 shadow-lg hover:bg-blue-600 transition"
-                                    href={`/ticket/store/${ticket.id}`}
-                                >
-                                    <FontAwesomeIcon icon={faEdit} size="lg"/>
-                                </a>
-                            </td>
+                <div className="flex gap-4 mb-6">
+                    <table className="min-w-full bg-white shadow-md rounded-lg">
+                        <thead>
+                        <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                            <th className="py-3 px-6 text-left">ID</th>
+                            <th className="py-3 px-6 text-left">Funcionário ID</th>
+                            <th className="py-3 px-6 text-left">Funcionário</th>
+                            <th className="py-3 px-6 text-left">Quantidade</th>
+                            <th className="py-3 px-6 text-left">Situação</th>
+                            <th className="py-3 px-6 text-left">Criado em</th>
+                            <th className="py-3 px-6 text-left">Atualizado em</th>
+                            <th className="py-3 px-6 text-left">Ações</th>
                         </tr>
-                    ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody className="text-gray-700 text-sm">
+                        {tickets.map((ticket) => (
+                            <tr key={ticket.id} className="border-b border-gray-200 hover:bg-gray-100">
+                                <td className="py-3 px-6">{ticket.id}</td>
+                                <td className="py-3 px-6">{ticket.employee_id}</td>
+                                <td className="py-3 px-6">{ticket.employee}</td>
+                                <td className="py-3 px-6">{ticket.quantity}</td>
+                                <td
+                                    className={`py-3 px-6 ${
+                                        ticket.situation === "Ativo" ? "text-green-600" : "text-red-600"
+                                    } font-bold`}
+                                >
+                                    {ticket.situation}
+                                </td>
+                                <td className="py-3 px-6">{ticket.created_at}</td>
+                                <td className="py-3 px-6">{ticket.updated_at}</td>
+                                <td className="py-3 px-6">
+                                    <a
+                                        className="bg-blue-500 text-white rounded-full p-3 shadow-lg hover:bg-blue-600 transition"
+                                        href={`/ticket/store/${ticket.id}`}
+                                    >
+                                        <FontAwesomeIcon icon={faEdit} size="lg"/>
+                                    </a>
+                                </td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );
