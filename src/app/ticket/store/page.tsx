@@ -14,7 +14,8 @@ const StoreTicketPage = () => {
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState<string | null>(null);
     const [messageType, setMessageType] = useState<string | null>(null);
-    const [formErrors, setFormErrors] = useState<any>({});
+    const [formErrors, setFormErrors] = useState<{ [key: string]: string[] }>({});
+
     const handleSubmit = (data: Ticket) => {
         setLoading(true);
         setMessage(null);
