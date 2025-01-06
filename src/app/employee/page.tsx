@@ -87,7 +87,7 @@ const EmployeePage: React.FC = () => {
                         className="w-full border border-gray-200 rounded-lg p-3 shadow-lg focus:ring focus:ring-blue-300"
                         placeholder="Pesquisar"
                         value={searchTerm}
-                        onChange={handleSearchChange} // Attach onChange to handle input change
+                        onChange={handleSearchChange}
                     />
                 </div>
                 <div>
