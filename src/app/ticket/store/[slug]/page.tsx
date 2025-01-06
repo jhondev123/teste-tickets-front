@@ -9,7 +9,7 @@ import { ClipLoader } from 'react-spinners';
 interface Ticket {
     employee_id: number;
     quantity: number;
-    situation: string;
+    situation?: string;
 }
 
 interface PageProps {
