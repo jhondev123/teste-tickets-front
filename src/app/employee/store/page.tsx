@@ -27,21 +27,20 @@ const StoreEmployeePage: React.FC = () => {
         axios.post('employees', data)
             .then(() => {
                 setLoading(false);
-                setMessage('Funcionário cadastrado com sucesso!');
+                setMessage('Cadastrado com sucesso!');
                 setMessageType('success');
-                // Redirecionar após 3 segundos
                 setTimeout(() => {
                     router.push('/employee');
-                }, 3000);
+                }, 2000);
             })
             .catch((error) => {
                 setLoading(false);
                 if (error.response && error.response.status === 422) {
                     const errorData = error.response.data;
                     setFormErrors(errorData.errors || {});
-                    setMessage(errorData.message || 'Erro ao cadastrar funcionário. Tente novamente.');
+                    setMessage(errorData.message || 'Erro ao cadastrar. Tente novamente.');
                 } else {
-                    setMessage('Erro ao cadastrar funcionário. Tente novamente.');
+                    setMessage('Erro ao cadastrar. Tente novamente.');
                 }
                 setMessageType('error');
             });

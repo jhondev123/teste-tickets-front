@@ -29,7 +29,7 @@ export default function EditEmployeePage({ params }: PageProps) {
                 const resolvedParams = await params;
                 setSlug(resolvedParams.slug);
             } catch (error) {
-                console.error('Error resolving params:', error);
+                console.error('Erro Inesperado:', error);
             }
         };
 
@@ -45,7 +45,7 @@ export default function EditEmployeePage({ params }: PageProps) {
                     setLoading(false);
                 })
                 .catch((error) => {
-                    setMessage({ type: 'error', text: 'Erro ao carregar os dados do funcionário. Tente novamente.' });
+                    setMessage({ type: 'error', text: 'Erro ao carregar os dados. Tente novamente.' });
                     setLoading(false);
                     console.error(error);
                 });
@@ -61,7 +61,7 @@ export default function EditEmployeePage({ params }: PageProps) {
 
         axios.put(`employees/${slug}`, data)
             .then(() => {
-                setMessage({ type: 'success', text: 'Funcionário editado com sucesso!' });
+                setMessage({ type: 'success', text: 'Editado com sucesso!' });
                 setLoading(false);
                 setTimeout(() => {
                     router.push('/employee');
@@ -72,9 +72,9 @@ export default function EditEmployeePage({ params }: PageProps) {
                 if (error.response && error.response.status === 422) {
                     const errorData = error.response.data;
                     setFormErrors(errorData.errors || {});
-                    setMessage({ type: 'error', text: errorData.message || 'Erro ao editar funcionário. Tente novamente.' });
+                    setMessage({ type: 'error', text: errorData.message || 'Erro ao editar. Tente novamente.' });
                 } else {
-                    setMessage({ type: 'error', text: 'Erro ao editar funcionário. Tente novamente.' });
+                    setMessage({ type: 'error', text: 'Erro ao editar. Tente novamente.' });
                 }
             });
     };

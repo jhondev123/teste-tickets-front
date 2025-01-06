@@ -7,7 +7,7 @@ import { faUser, faIdCard } from '@fortawesome/free-solid-svg-icons';
 interface EmployeeData {
     name: string;
     cpf: string;
-    situation?: string; // Incluído para situação
+    situation?: string;
 }
 
 interface FormEmployeeProps {
@@ -19,10 +19,9 @@ const FormEmployee: React.FC<FormEmployeeProps> = ({ onSubmit, initialData }) =>
     const [employee, setEmployee] = useState<EmployeeData>({
         name: initialData?.name || "",
         cpf: initialData?.cpf || "",
-        situation: initialData?.situation || "A", // Default para "A" (ativo) na edição
+        situation: initialData?.situation || "A",
     });
 
-    // Atualizar estado `employee` quando `initialData` mudar
     useEffect(() => {
         if (initialData) {
             let situation = "";
