@@ -8,7 +8,5 @@ const axiosInstance = axios.create({
     },
 });
 
-// Verifique a URL base configurada
-console.log('Axios Base URL:', process.env.NEXT_PUBLIC_API_BASE_URL);
 
 export default axiosInstance;
